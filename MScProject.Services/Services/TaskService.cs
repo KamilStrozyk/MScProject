@@ -59,14 +59,14 @@ namespace MScProject.Services.Services
         {
             using var connection = new NpgsqlConnection(connectionString);
             connection.Open();
-            var query = $"SELECT photo.id, photo.content FROM task WHERE task_id = {id}";
+            var query = $"SELECT photo.id, photo.content FROM photo join task_photo on photo.id = task_photo.photo_id WHERE task_photo.task_id = {id}";
             var command = new NpgsqlCommand(query, connection);
             var result = command.ExecuteReader();
             while (result.Read())
             {
                 var bufferSize = 1024;
                 var buffer = new byte[bufferSize];
-                result.GetBytes(2, 0, buffer, 0, bufferSize);
+                result.GetBytes(1, 0, buffer, 0, bufferSize);
                 yield return new PhotoDTO()
                 {
                     Id = result.GetInt64(0),
@@ -102,11 +102,18 @@ namespace MScProject.Services.Services
             using var connection = new NpgsqlConnection(connectionString);
             connection.Open();
             
-            // var query = $"DELETE FROM task_photo WHERE task_id = {id}";
-            // var command = new NpgsqlCommand(query, connection);
-            // var result = command.ExecuteNonQuery();
-            //
             var query = $"DELETE FROM task WHERE id = {id}";
+            var command = new NpgsqlCommand(query, connection);
+            var result = command.ExecuteNonQuery();
+            if (result == 0) throw new InvalidOperationException();
+        }
+
+        public void Assign(long id, long photoId)
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            connection.Open();
+            var query =
+                $"INSERT INTO task_photo(task_id, photo_id) VALUES({id}, {photoId})";
             var command = new NpgsqlCommand(query, connection);
             var result = command.ExecuteNonQuery();
             if (result == 0) throw new InvalidOperationException();
@@ -114,12 +121,12 @@ namespace MScProject.Services.Services
 
         public void Unassign(long id, long photoId)
         {
-            throw new System.NotImplementedException();
-        }
+            using var connection = new NpgsqlConnection(connectionString);
+            connection.Open();
 
-        public void Assign(long id, long photoId)
-        {
-            throw new System.NotImplementedException();
+            var query = $"DELETE FROM task_photo WHERE task_id = {id} and photo_id = {photoId}";
+            var command = new NpgsqlCommand(query, connection);
+            var result = command.ExecuteNonQuery();
         }
     }
 }

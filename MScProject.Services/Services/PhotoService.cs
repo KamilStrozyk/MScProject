@@ -58,12 +58,22 @@ namespace MScProject.Services.Services
 
         public IEnumerable<TaskDTO> GetTasks(long id)
         {
-            // using var connection = new NpgsqlConnection(connectionString);
-            // connection.Open();
-            // var query = $"SELECT photo.id, photo.content FROM task WHERE task_id = {id}";
-            // var command = new NpgsqlCommand(query, connection);
-            // var result = command.ExecuteReader();r
-            return null;
+            using var connection = new NpgsqlConnection(connectionString);
+            connection.Open();
+            var query = $"SELECT task.id, task.list_id, task.title, task.description, task.created_at FROM task join task_photo on task.id = task_photo.task_id WHERE task_photo.photo_id = {id}";
+            var command = new NpgsqlCommand(query, connection);
+            var result = command.ExecuteReader();
+            while (result.Read())
+            {
+                yield return new TaskDTO
+                {
+                    Id = result.GetInt64(0),
+                    ListId = result.GetInt64(1),
+                    Title = result.GetString(2),
+                    Description = result.GetString(3),
+                    CreatedAt = result.GetDateTime(4)
+                };
+            }
         }
 
         public void Create(PhotoDTO photo)
@@ -94,11 +104,7 @@ namespace MScProject.Services.Services
         {
             using var connection = new NpgsqlConnection(connectionString);
             connection.Open();
-
-            // var query = $"DELETE FROM task_photo WHERE photo_id = {id}";
-            // var command = new NpgsqlCommand(query, connection);
-            // var result = command.ExecuteNonQuery();
-
+            
             var query = $"DELETE FROM photo WHERE id = {id}";
             var command = new NpgsqlCommand(query, connection);
             var result = command.ExecuteNonQuery();
