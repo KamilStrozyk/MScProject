@@ -15,7 +15,7 @@ namespace MScProject.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TaskPhoto>()
-                .HasNoKey();
+                .HasKey(x => x.PhotoId);
         }
         
         public DbSet<TaskList> TaskLists { get; set; }

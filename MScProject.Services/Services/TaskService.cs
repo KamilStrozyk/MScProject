@@ -4,10 +4,11 @@ using MScProject.Database.Models;
 using MScProject.Services.DTO;
 using MScProject.Services.Services.Interfaces;
 using System.Linq;
+using System.Text;
 
 namespace MScProject.Services.Services
 {
-    public class TaskService: ITaskService
+    public class TaskService : ITaskService
     {
         private readonly ApplicationDbContext _context;
 
@@ -38,7 +39,10 @@ namespace MScProject.Services.Services
 
         public IEnumerable<PhotoDTO> GetTasksPhotos(long id)
         {
-            throw new System.NotImplementedException();
+            var photoIds = _context.Set<TaskPhoto>().Where(x => x.TaskId == id).Select(x => x.PhotoId).ToArray();
+            return _context.Set<Photo>()
+                .Where(x => photoIds.Contains(x.Id))
+                .Select(x => new PhotoDTO {Id = x.Id, Content = Encoding.ASCII.GetString(x.Content)});
         }
 
         public void Create(TaskDTO task)
@@ -48,7 +52,8 @@ namespace MScProject.Services.Services
                 Id = task.Id,
                 Title = task.Title,
                 CreatedAt = task.CreatedAt,
-                Description = task.Description
+                Description = task.Description,
+                ListId = task.ListId
             });
             _context.SaveChanges();
         }
@@ -60,7 +65,8 @@ namespace MScProject.Services.Services
                 Id = task.Id,
                 Title = task.Title,
                 CreatedAt = task.CreatedAt,
-                Description = task.Description
+                Description = task.Description,
+                ListId = task.ListId
             });
             _context.SaveChanges();
         }
@@ -77,12 +83,22 @@ namespace MScProject.Services.Services
 
         public void Unassign(long id, long photoId)
         {
-            throw new System.NotImplementedException();
+            _context.Set<TaskPhoto>().Remove(new TaskPhoto
+            {
+                TaskId = id,
+                PhotoId = photoId
+            });
+            _context.SaveChanges();
         }
 
         public void Assign(long id, long photoId)
         {
-            throw new System.NotImplementedException();
+            _context.Set<TaskPhoto>().Add(new TaskPhoto
+            {
+                TaskId = id,
+                PhotoId = photoId
+            });
+            _context.SaveChanges();
         }
     }
 }

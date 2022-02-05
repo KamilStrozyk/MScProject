@@ -16,7 +16,5 @@ namespace MScProject.Database.Models
         public string Description { get; set; }
         [Column("created_at")]
         public DateTime CreatedAt { get; set; }
-
-        public TaskList TaskList { get; set; }
     }
 }

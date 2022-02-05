@@ -9,7 +9,8 @@ namespace MScProject.Database.Models
     {
         [Column("id")]
         public long Id { get; set; }
+        
         [Column("content")]
-        public byte[] content { get; set; }
+        public byte[] Content { get; set; }
     }
 }

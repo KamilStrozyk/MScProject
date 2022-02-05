@@ -13,7 +13,5 @@ namespace MScProject.Database.Models
         public string Title { get; set; }
         [Column("created_at")]
         public DateTime CreatedAt { get; set; }
-        
-        public IEnumerable<Task> Tasks { get; set; }
     }
 }
