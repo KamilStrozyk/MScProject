@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using MScProject.Database.Models;
+using MScProject.Database.Repositories.Interfaces;
 using MScProject.Services.DTO;
 using MScProject.Services.Services.Interfaces;
 
@@ -6,34 +9,61 @@ namespace MScProject.Services.Services
 {
     public class TaskListService : ITaskListService
     {
-        public IEnumerable<TaskListDTO> GetAllTaskLists()
+        private readonly ITaskListRepository _taskListRepository;
+
+        public TaskListService(ITaskListRepository taskListRepository)
         {
-            throw new System.NotImplementedException();
+            _taskListRepository = taskListRepository;
         }
+
+        public IEnumerable<TaskListDTO> GetAllTaskLists()
+            => _taskListRepository.GetAll().Select(x => new TaskListDTO
+            {
+                Id = x.Id,
+                Title = x.Title,
+                CreatedAt = x.CreatedAt
+            });
 
         public TaskListDTO Get(long id)
         {
-            throw new System.NotImplementedException();
+            var model = _taskListRepository.Get(id);
+            return new TaskListDTO
+            {
+                Id = model.Id,
+                Title = model.Title,
+                CreatedAt = model.CreatedAt
+            };
         }
 
         public IEnumerable<TaskDTO> GetTasks(long id)
-        {
-            throw new System.NotImplementedException();
-        }
+            => _taskListRepository.GetTasks(id)
+                .Select(x => new TaskDTO()
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    CreatedAt = x.CreatedAt,
+                    Description = x.Description,
+                    ListId = x.ListId,
+                });
 
         public void Create(TaskListDTO taskList)
-        {
-            throw new System.NotImplementedException();
-        }
+            => _taskListRepository.Add(new TaskList
+            {
+                Id = taskList.Id,
+                Title = taskList.Title,
+                CreatedAt = taskList.CreatedAt
+            });
+
 
         public void Update(TaskListDTO taskList)
-        {
-            throw new System.NotImplementedException();
-        }
+            => _taskListRepository.Update(new TaskList
+            {
+                Id = taskList.Id,
+                Title = taskList.Title,
+                CreatedAt = taskList.CreatedAt
+            });
 
         public void Delete(long id)
-        {
-            throw new System.NotImplementedException();
-        }
+            => _taskListRepository.Delete(id);
     }
 }
