@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using MScProject.Database.Models;
+using MScProject.Database.Repositories.Interfaces;
 
-namespace MScProject.Database.Repositories.Interfaces
+namespace MScProject.Database.Repositories
 {
     public class TaskListRepository : GenericRepository<TaskList>, ITaskListRepository
     {

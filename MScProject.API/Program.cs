@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MScProject.Database.Repositories;
 using MScProject.Database.Repositories.Interfaces;
 using MScProject.Services.Services;
 using MScProject.Services.Services.Interfaces;
@@ -27,7 +28,9 @@ namespace MScProject.API
                         services.AddScoped<IPhotoService, PhotoService>()
                             .AddScoped<ITaskService, TaskService>()
                             .AddScoped<ITaskListService, TaskListService>()
-                            .AddScoped<ITaskListRepository,TaskListRepository>())
+                            .AddScoped<ITaskListRepository,TaskListRepository>()
+                            .AddScoped<ITaskRepository,TaskRepository>()
+                            .AddScoped<IPhotoRepository,PhotoRepository>())
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }
 }
