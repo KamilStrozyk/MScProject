@@ -3,6 +3,6 @@
     public class PhotoDTO
     {
         public long Id { get; set; }
-        public byte[] Content { get; set; } 
+        public string Content { get; set; } 
     }
 }

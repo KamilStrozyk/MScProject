@@ -11,5 +11,7 @@ namespace MScProject.Services.Services.Interfaces
         void Create(TaskDTO task);
         void Update(TaskDTO task);
         void Delete(long id);
+        void Unassign(long id, long photoId);
+        void Assign(long id, long photoId);
     }
 }

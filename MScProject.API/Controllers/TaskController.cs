@@ -42,6 +42,14 @@ namespace MScProject.API.Controllers
         
         [HttpDelete("{id}")]
         public void DeleteTask(long id)
-            => _taskService.Delete(id);
+            => _taskService.Delete(id); 
+        
+        [HttpDelete("{id}/photos/{photoId}")]
+        public void UnassignPhoto(long id, long PhotoId)
+            => _taskService.Unassign(id, PhotoId);   
+        
+        [HttpPost("{id}/photos/{photoId}")]
+        public void AssignPhoto(long id, long PhotoId)
+            => _taskService.Assign(id, PhotoId);
     }
 }

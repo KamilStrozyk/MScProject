@@ -35,5 +35,15 @@ namespace MScProject.Services.Services
         {
             throw new System.NotImplementedException();
         }
+
+        public void Unassign(long id, long photoId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Assign(long id, long photoId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
