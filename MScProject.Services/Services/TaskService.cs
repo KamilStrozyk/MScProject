@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Microsoft.Extensions.Configuration;
 using MScProject.Services.DTO;
 using MScProject.Services.Services.Interfaces;
@@ -69,7 +70,7 @@ namespace MScProject.Services.Services
                 yield return new PhotoDTO()
                 {
                     Id = result.GetInt64(0),
-                    Content = buffer,
+                    Content = Encoding.ASCII.GetString(buffer),
                 };
             }
         }
