@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using MScProject.Services.DTO;
 
 namespace MScProject.Services.Services.Interfaces
 {
     public interface ITaskService
     {
-        IEnumerable<TaskDTO> GetAllTasks();
-        TaskDTO Get(long id);
-        IEnumerable<PhotoDTO> GetTasksPhotos(long id);
-        void Create(TaskDTO task);
-        void Update(TaskDTO task);
-        void Delete(long id);
+        Task<IEnumerable<TaskDTO>> GetAllTasks();
+        Task<TaskDTO> Get(string id);
+        Task<IEnumerable<PhotoDTO>> GetTasksPhotos(string id);
+        Task Create(TaskDTO task);
+        Task Update(TaskDTO task);
+        Task Delete(string id);
     }
 }

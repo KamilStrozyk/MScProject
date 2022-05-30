@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MScProject.Services.DTO;
@@ -21,27 +22,27 @@ namespace MScProject.API.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<TaskDTO> GetAll()
-            => _taskService.GetAllTasks();
+        public async Task<IEnumerable<TaskDTO>> GetAll()
+            => await _taskService.GetAllTasks();
         
         [HttpGet("{id}")]
-        public TaskDTO GetTask(long id)
-            => _taskService.Get(id);
+        public async Task<TaskDTO> GetTask(string id)
+            => await _taskService.Get(id);
         
         [HttpGet("{id}/photos")]
-        public IEnumerable<PhotoDTO> GetTaskPhotos(long id)
-            => _taskService.GetTasksPhotos(id);
+        public async Task<IEnumerable<PhotoDTO>> GetTaskPhotos(string id)
+            => await _taskService.GetTasksPhotos(id);
         
         [HttpPost]
-        public void CreateTask([FromBody] TaskDTO task)
-            => _taskService.Create(task);
+        public async Task CreateTask([FromBody] TaskDTO task)
+            => await _taskService.Create(task);
         
         [HttpPut]
-        public void UpdateTask([FromBody] TaskDTO task)
-            => _taskService.Update(task);
+        public async Task UpdateTask([FromBody] TaskDTO task)
+            => await _taskService.Update(task);
         
         [HttpDelete("{id}")]
-        public void DeleteTask(long id)
-            => _taskService.Delete(id);
+        public async Task DeleteTask(string id)
+            => await _taskService.Delete(id);
     }
 }
