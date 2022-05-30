@@ -1,16 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MScProject.Database;
+using MScProject.Database.Interfaces;
 
 namespace MScProject.API
 {
@@ -31,6 +26,8 @@ namespace MScProject.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "MScProject.API", Version = "v1"});
             });
+            
+            services.AddSingleton<IMongoDbContext, MongoDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
