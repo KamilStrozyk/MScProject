@@ -9,4 +9,8 @@
       <ProjectReference Include="..\MScProject.Database\MScProject.Database.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="MongoDB.Driver" Version="2.15.1" />
+    </ItemGroup>
+
 </Project>

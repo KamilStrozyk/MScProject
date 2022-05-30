@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using MScProject.Services.DTO;
+using MongoDB.Bson;
 using MScProject.Services.Services.Interfaces;
 
 namespace MScProject.API.Controllers
@@ -21,23 +21,23 @@ namespace MScProject.API.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<TaskListDTO> GetAll()
+        public IEnumerable<BsonDocument> GetAll()
             => _taskListService.GetAllTaskLists();
         
         [HttpGet("{id}")]
-        public TaskListDTO GetTaskList(long id)
+        public BsonDocument GetTaskList(long id)
             => _taskListService.Get(id);
         
         [HttpGet("{id}/tasks")]
-        public IEnumerable<TaskDTO> GetTaskListTasks(long id)
+        public IEnumerable<BsonDocument> GetTaskListTasks(long id)
             => _taskListService.GetTasks(id);
         
         [HttpPost]
-        public void CreateTaskList([FromBody] TaskListDTO taskList)
+        public void CreateTaskList([FromBody] BsonDocument taskList)
             => _taskListService.Create(taskList);
         
         [HttpPut]
-        public void UpdateTaskList([FromBody] TaskListDTO taskList)
+        public void UpdateTaskList([FromBody] BsonDocument taskList)
             => _taskListService.Update(taskList);
         
         [HttpDelete("{id}")]

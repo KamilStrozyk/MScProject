@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using MScProject.Services.DTO;
+using MongoDB.Bson;
 using MScProject.Services.Services.Interfaces;
 
 namespace MScProject.API.Controllers
@@ -21,23 +21,23 @@ namespace MScProject.API.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<TaskDTO> GetAll()
+        public IEnumerable<BsonDocument> GetAll()
             => _taskService.GetAllTasks();
         
         [HttpGet("{id}")]
-        public TaskDTO GetTask(long id)
+        public BsonDocument GetTask(long id)
             => _taskService.Get(id);
         
         [HttpGet("{id}/photos")]
-        public IEnumerable<PhotoDTO> GetTaskPhotos(long id)
+        public IEnumerable<BsonDocument> GetTaskPhotos(long id)
             => _taskService.GetTasksPhotos(id);
         
         [HttpPost]
-        public void CreateTask([FromBody] TaskDTO task)
+        public void CreateTask([FromBody] BsonDocument task)
             => _taskService.Create(task);
         
         [HttpPut]
-        public void UpdateTask([FromBody] TaskDTO task)
+        public void UpdateTask([FromBody] BsonDocument task)
             => _taskService.Update(task);
         
         [HttpDelete("{id}")]

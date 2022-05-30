@@ -1,32 +1,32 @@
 ﻿using System.Collections.Generic;
-using MScProject.Services.DTO;
+using MongoDB.Bson;
 using MScProject.Services.Services.Interfaces;
 
 namespace MScProject.Services.Services
 {
     public class PhotoService: IPhotoService
     {
-        public IEnumerable<PhotoDTO> GetAllPhotos()
+        public IEnumerable<BsonDocument> GetAllPhotos()
         {
             throw new System.NotImplementedException();
         }
 
-        public PhotoDTO Get(long id)
+        public BsonDocument Get(long id)
         {
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<TaskDTO> GetTasks(long id)
+        public IEnumerable<BsonDocument> GetTasks(long id)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Create(PhotoDTO photo)
+        public void Create(BsonDocument photo)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Update(PhotoDTO photo)
+        public void Update(BsonDocument photo)
         {
             throw new System.NotImplementedException();
         }

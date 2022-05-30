@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
-using MScProject.Services.DTO;
+using MongoDB.Bson;
 
 namespace MScProject.Services.Services.Interfaces
 {
     public interface ITaskListService
     {
-        IEnumerable<TaskListDTO> GetAllTaskLists();
-        TaskListDTO Get(long id);
-        IEnumerable<TaskDTO> GetTasks(long id);
-        void Create(TaskListDTO taskList);
-        void Update(TaskListDTO taskList);
+        IEnumerable<BsonDocument> GetAllTaskLists();
+        BsonDocument Get(long id);
+        IEnumerable<BsonDocument> GetTasks(long id);
+        void Create(BsonDocument taskList);
+        void Update(BsonDocument taskList);
         void Delete(long id);
     }
 }

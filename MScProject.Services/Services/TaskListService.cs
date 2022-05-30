@@ -1,32 +1,32 @@
 ﻿using System.Collections.Generic;
-using MScProject.Services.DTO;
+using MongoDB.Bson;
 using MScProject.Services.Services.Interfaces;
 
 namespace MScProject.Services.Services
 {
     public class TaskListService : ITaskListService
     {
-        public IEnumerable<TaskListDTO> GetAllTaskLists()
+        public IEnumerable<BsonDocument> GetAllTaskLists()
         {
             throw new System.NotImplementedException();
         }
 
-        public TaskListDTO Get(long id)
+        public BsonDocument Get(long id)
         {
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<TaskDTO> GetTasks(long id)
+        public IEnumerable<BsonDocument> GetTasks(long id)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Create(TaskListDTO taskList)
+        public void Create(BsonDocument taskList)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Update(TaskListDTO taskList)
+        public void Update(BsonDocument taskList)
         {
             throw new System.NotImplementedException();
         }
