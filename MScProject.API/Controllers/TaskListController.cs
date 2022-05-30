@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MScProject.Services.DTO;
@@ -21,27 +22,27 @@ namespace MScProject.API.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<TaskListDTO> GetAll()
-            => _taskListService.GetAllTaskLists();
+        public async Task<IEnumerable<TaskListDTO>> GetAll()
+            => await _taskListService.GetAllTaskLists();
         
         [HttpGet("{id}")]
-        public TaskListDTO GetTaskList(long id)
+        public Task<TaskListDTO> GetTaskList(string id)
             => _taskListService.Get(id);
         
         [HttpGet("{id}/tasks")]
-        public IEnumerable<TaskDTO> GetTaskListTasks(long id)
+        public Task<IEnumerable<TaskDTO>> GetTaskListTasks(string id)
             => _taskListService.GetTasks(id);
         
         [HttpPost]
-        public void CreateTaskList([FromBody] TaskListDTO taskList)
+        public Task CreateTaskList([FromBody] TaskListDTO taskList)
             => _taskListService.Create(taskList);
         
         [HttpPut]
-        public void UpdateTaskList([FromBody] TaskListDTO taskList)
+        public Task UpdateTaskList([FromBody] TaskListDTO taskList)
             => _taskListService.Update(taskList);
         
         [HttpDelete("{id}")]
-        public void DeleteTaskList(long id)
+        public Task DeleteTaskList(string id)
             => _taskListService.Delete(id);
     }
 }

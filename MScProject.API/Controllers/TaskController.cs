@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MScProject.Services.DTO;
@@ -21,27 +22,27 @@ namespace MScProject.API.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<TaskDTO> GetAll()
+        public Task<IEnumerable<TaskDTO>> GetAll()
             => _taskService.GetAllTasks();
         
         [HttpGet("{id}")]
-        public TaskDTO GetTask(long id)
+        public Task<TaskDTO> GetTask(string id)
             => _taskService.Get(id);
         
         [HttpGet("{id}/photos")]
-        public IEnumerable<PhotoDTO> GetTaskPhotos(long id)
+        public Task<IEnumerable<PhotoDTO>> GetTaskPhotos(string id)
             => _taskService.GetTasksPhotos(id);
         
         [HttpPost]
-        public void CreateTask([FromBody] TaskDTO task)
+        public Task CreateTask([FromBody] TaskDTO task)
             => _taskService.Create(task);
         
         [HttpPut]
-        public void UpdateTask([FromBody] TaskDTO task)
+        public Task UpdateTask([FromBody] TaskDTO task)
             => _taskService.Update(task);
         
         [HttpDelete("{id}")]
-        public void DeleteTask(long id)
+        public Task DeleteTask(string id)
             => _taskService.Delete(id);
     }
 }
