@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
@@ -21,27 +22,27 @@ namespace MScProject.API.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<BsonDocument> GetAll()
-            => _photoService.GetAllPhotos();
+        public async Task<string> GetAll()
+            => await _photoService.GetAllPhotos();
         
         [HttpGet("{id}")]
-        public BsonDocument GetPhoto(long id)
-            => _photoService.Get(id);
+        public async Task<string> GetPhoto(string id)
+            => await _photoService.Get(id);
         
         [HttpGet("{id}/tasks")]
-        public IEnumerable<BsonDocument> GetPhotoTasks(long id)
-            => _photoService.GetTasks(id);
+        public async Task<string> GetPhotoTasks(string id)
+            => await _photoService.GetTasks(id);
         
         [HttpPost]
-        public void CreatePhoto([FromBody] BsonDocument photo)
-            => _photoService.Create(photo);
+        public async Task CreatePhoto([FromBody] string photo)
+            => await _photoService.Create(photo);
         
         [HttpPut]
-        public void UpdatePhoto([FromBody] BsonDocument photo)
-            => _photoService.Update(photo);
+        public async Task UpdatePhoto([FromBody] string photo)
+            => await _photoService.Update(photo);
         
         [HttpDelete("{id}")]
-        public void DeletePhoto(long id)
-            => _photoService.Delete(id);
+        public async Task DeletePhoto(string id)
+            => await _photoService.Delete(id);
     }
 }

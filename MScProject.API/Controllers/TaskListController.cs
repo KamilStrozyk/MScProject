@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
@@ -21,27 +22,27 @@ namespace MScProject.API.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<BsonDocument> GetAll()
-            => _taskListService.GetAllTaskLists();
+        public async Task<string> GetAll()
+            =>  await _taskListService.GetAllTaskLists();
         
         [HttpGet("{id}")]
-        public BsonDocument GetTaskList(long id)
-            => _taskListService.Get(id);
+        public async Task<string> GetTaskList(string id)
+            => await _taskListService.Get(id);
         
         [HttpGet("{id}/tasks")]
-        public IEnumerable<BsonDocument> GetTaskListTasks(long id)
-            => _taskListService.GetTasks(id);
+        public async Task<string> GetTaskListTasks(string id)
+            => await _taskListService.GetTasks(id);
         
         [HttpPost]
-        public void CreateTaskList([FromBody] BsonDocument taskList)
-            => _taskListService.Create(taskList);
+        public async Task CreateTaskList([FromBody] string taskList)
+            => await _taskListService.Create(taskList);
         
         [HttpPut]
-        public void UpdateTaskList([FromBody] BsonDocument taskList)
-            => _taskListService.Update(taskList);
+        public async Task UpdateTaskList([FromBody] string taskList)
+            => await _taskListService.Update(taskList);
         
         [HttpDelete("{id}")]
-        public void DeleteTaskList(long id)
-            => _taskListService.Delete(id);
+        public async Task DeleteTaskList(string id)
+            => await _taskListService.Delete(id);
     }
 }
